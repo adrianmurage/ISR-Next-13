@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken';
+import getFormattedTime from './time-ago';
+import { GoIssueOpened } from 'react-icons/go';
 
 export default async function Home() {
   let accessToken;
@@ -86,10 +88,32 @@ export default async function Home() {
 
   return (
     <>
-      <div>
-        <div>This app demonstrates how ISR works in Next.js 13.4.8</div>
-        <p>There are {issues.length} issues</p>
-      </div>
+      <main className="p-6 pt-10 space-y-8 max-w-5xl mx-auto">
+        <section>
+          <div className="border border-dashed p-4 border-orange-400 bg-white">
+            <div>This app demonstrates how ISR works in Next.js 13.4.8</div>
+            <p>There are {issues.length} issues</p>
+          </div>
+        </section>
+        <section>
+          <div className="border rounded-md bg-white">
+            {issues.map((issue) => (
+              <>
+                <div className="px-3 py-4 border-b last:border-b-0 flex items-start gap-2 hover:cursor-pointer hover:bg-slate-100">
+                  <GoIssueOpened className="mx-2 mt-1 text-green-600 stroke-2" />
+                  <div className="space-y-2">
+                    <div className="font-bold">{issue.title}</div>
+                    <div className="text-sm text-gray-500">
+                      #{issue.number} opened{' '}
+                      {getFormattedTime(issue.created_at)} by {issue.user.login}
+                    </div>
+                  </div>
+                </div>
+              </>
+            ))}
+          </div>
+        </section>
+      </main>
     </>
   );
 }
