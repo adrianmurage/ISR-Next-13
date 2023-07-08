@@ -32,7 +32,7 @@ export default async function Home() {
         'Content-Type': 'application/json',
         Accept: 'application/json/github.v3.json',
       },
-      next: {revalidate: 10}
+      next: { revalidate: 10 },
     });
   }
 
@@ -54,7 +54,6 @@ export default async function Home() {
     const installation = Array.from(installations).find(
       (installation) => installation.account.login === 'adrianmurage'
     );
-    console.log({ installation });
 
     return installation;
   }
@@ -84,8 +83,13 @@ export default async function Home() {
     return issues;
   }
 
-  const issues = await fetchIssues();
-  console.log({ issues });
+  const issuesAndPrs = await fetchIssues();
+
+  // filter out Pull Requests from the results
+  //reason can be found here: https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues
+  const issues = issuesAndPrs.filter(
+    (issue) => issue.node_id.charAt(0) === 'I'
+  );
 
   return (
     <>
