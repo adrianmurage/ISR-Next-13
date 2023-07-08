@@ -32,6 +32,7 @@ export default async function Home() {
         'Content-Type': 'application/json',
         Accept: 'application/json/github.v3.json',
       },
+      next: {revalidate: 10}
     });
   }
 
