@@ -1,8 +1,9 @@
-import { fetchIssues } from './fetchBgRevalidation';
-
-import Explanation from './explanation';
-import IssuesList from './issuesList';
-import { fetchGhIssues, getInstallation } from './octokitBgRevalidation';
+import ExplanationBlock from '../components/ExplanationBlock';
+import InlineCodeBlock from '../components/InlineCodeBlock';
+import IssuesList from '../components/IssuesList';
+import NavBar from '../components/NavBar';
+import { fetchIssues } from '../lib/fetchBgRevalidation';
+import { fetchGhIssues } from '../lib/octokitBgRevalidation';
 
 export const revalidate = 10;
 
@@ -23,8 +24,16 @@ export default async function Home() {
   return (
     <>
       <main className="p-6 pt-10 space-y-8 max-w-5xl mx-auto">
+        <NavBar />
         <section>
-          <Explanation />
+          <ExplanationBlock>
+            <h1 className="font-medium mb-4 text-lg">
+              Background revalidation with{' '}
+              <InlineCodeBlock>fetch( )</InlineCodeBlock> and a third party
+              library ( <InlineCodeBlock>Octokit.js</InlineCodeBlock> )
+            </h1>
+            <div>This app demonstrates how ISR works in Next.js 13.4.8</div>
+          </ExplanationBlock>
         </section>
         <section>
           <h1 className="font-medium mb-4">

@@ -1,5 +1,5 @@
-import getFormattedTime from './time-ago';
 import { GoIssueOpened } from 'react-icons/go';
+import getFormattedTime from '../lib/time-ago';
 
 export default function IssuesList({ issues }) {
   return (
