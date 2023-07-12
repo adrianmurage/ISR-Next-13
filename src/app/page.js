@@ -2,6 +2,7 @@ import { fetchIssues } from './fetchBgRevalidation';
 
 import Explanation from './explanation';
 import IssuesList from './issuesList';
+import { fetchGhIssues, getInstallation } from './octokitBgRevalidation';
 
 export default async function Home() {
   const getIssuesAndPrsWithFetch = await fetchIssues();
@@ -12,6 +13,11 @@ export default async function Home() {
     (issue) => issue.node_id.charAt(0) === 'I'
   );
 
+  const issues = await fetchGhIssues();
+
+  const issuesWithOctokit = issues.data.filter(
+    (issue) => issue.node_id.charAt(0) === 'I'
+  );
   return (
     <>
       <main className="p-6 pt-10 space-y-8 max-w-5xl mx-auto">
@@ -19,12 +25,16 @@ export default async function Home() {
           <Explanation />
         </section>
         <section>
-          <h1 className="font-medium mb-4">Background Revalidation with fetch</h1>
+          <h1 className="font-medium mb-4">
+            Background Revalidation with fetch
+          </h1>
           <IssuesList issues={issuesWithFetch} />
         </section>
         <section>
-          <h1 className="font-medium mb-4">Background Revalidation with Octokit.js</h1>
-          <IssuesList issues={issuesWithFetch} />
+          <h1 className="font-medium mb-4">
+            Background Revalidation with Octokit.js
+          </h1>
+          <IssuesList issues={issuesWithOctokit} />
         </section>
       </main>
     </>
