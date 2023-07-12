@@ -30,7 +30,7 @@ export function createGitHubRequest(path, token, opts) {
       'Content-Type': 'application/json',
       Accept: 'application/json/github.v3.json',
     },
-    next: { revalidate: 10 },
+    // next: { revalidate: 10 },
   });
 }
 
