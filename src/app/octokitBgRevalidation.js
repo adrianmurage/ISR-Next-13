@@ -1,6 +1,5 @@
 import { App } from 'octokit';
 
-export const revalidate = 10;
 
 const app = new App({
   appId: process.env.GITHUB_APP_ID,

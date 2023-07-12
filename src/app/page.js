@@ -4,6 +4,8 @@ import Explanation from './explanation';
 import IssuesList from './issuesList';
 import { fetchGhIssues, getInstallation } from './octokitBgRevalidation';
 
+export const revalidate = 10;
+
 export default async function Home() {
   const getIssuesAndPrsWithFetch = await fetchIssues();
 
