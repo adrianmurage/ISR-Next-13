@@ -1,8 +1,13 @@
 import ExplanationBlock from '../../components/ExplanationBlock';
 import InlineCodeBlock from '../../components/InlineCodeBlock';
+import IssuesList from '../../components/IssuesList';
 import NavBar from '../../components/NavBar';
+import { fetchIssues } from '../../lib/githubFetch';
+import { fetchGhIssues } from '../../lib/octokit';
 
-export default function OnDemand() {
+export default async function OnDemand() {
+  const issuesWithFetch = await fetchIssues();
+  const issuesWithOctokit = await fetchGhIssues();
   return (
     <>
       <main className="p-6 pt-10 space-y-8 max-w-5xl mx-auto">
@@ -17,6 +22,18 @@ export default function OnDemand() {
             </h1>
             <div>This app demonstrates how ISR works in Next.js 13.4.8</div>
           </ExplanationBlock>
+        </section>
+        <section>
+          <h1 className="font-medium mb-4">
+            On Demand Revalidation with fetch
+          </h1>
+          <IssuesList issues={issuesWithFetch} />
+        </section>
+        <section>
+          <h1 className="font-medium mb-4">
+            On Demand Revalidation with Octokit.js
+          </h1>
+          <IssuesList issues={issuesWithOctokit} />
         </section>
       </main>
     </>

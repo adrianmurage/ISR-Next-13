@@ -2,25 +2,14 @@ import ExplanationBlock from '../components/ExplanationBlock';
 import InlineCodeBlock from '../components/InlineCodeBlock';
 import IssuesList from '../components/IssuesList';
 import NavBar from '../components/NavBar';
-import { fetchIssues } from '../lib/fetchBgRevalidation';
-import { fetchGhIssues } from '../lib/octokitBgRevalidation';
+import { fetchIssues } from '../lib/githubFetch';
+import { fetchGhIssues } from '../lib/octokit';
 
-export const revalidate = 10;
+export const revalidate = 60;
 
 export default async function Home() {
-  const getIssuesAndPrsWithFetch = await fetchIssues();
-
-  // filter out Pull Requests from the results
-  //reason can be found here: https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues
-  const issuesWithFetch = getIssuesAndPrsWithFetch.filter(
-    (issue) => issue.node_id.charAt(0) === 'I'
-  );
-
-  const issues = await fetchGhIssues();
-
-  const issuesWithOctokit = issues.data.filter(
-    (issue) => issue.node_id.charAt(0) === 'I'
-  );
+  const issuesWithFetch = await fetchIssues();
+  const issuesWithOctokit = await fetchGhIssues();
   return (
     <>
       <main className="p-6 pt-10 space-y-8 max-w-5xl mx-auto">

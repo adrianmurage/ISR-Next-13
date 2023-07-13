@@ -1,6 +1,5 @@
 import { App } from 'octokit';
 
-
 const app = new App({
   appId: process.env.GITHUB_APP_ID,
   privateKey: process.env.GITHUB_APP_PK_PEM.replace(/\\n/g, '\n'),
@@ -30,8 +29,13 @@ export async function createGitHubRequest(path) {
 }
 
 export async function fetchGhIssues() {
-  const issues = await createGitHubRequest(
+  const issuesAndPrs = await createGitHubRequest(
     'GET /repos/adrianmurage/ISR-Next-13/issues'
+  );
+
+  // filter for only issues cause the endpoint returns both issues and PRs
+  const issues = issuesAndPrs.data.filter(
+    (issue) => issue.node_id.charAt(0) === 'I'
   );
   return issues;
 }

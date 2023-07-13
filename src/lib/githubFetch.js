@@ -25,12 +25,10 @@ export function createGitHubRequest(path, token, opts) {
   return fetch(`https://api.github.com${path}`, {
     ...opts,
     headers: {
-      // ...opts.headers,
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
       Accept: 'application/json/github.v3.json',
     },
-    // next: { revalidate: 10 },
   });
 }
 
@@ -74,9 +72,15 @@ export async function setAccessToken() {
 }
 
 export async function fetchIssues() {
-  const issues = await fetchGitHub(
+  const issuesAndPrs = await fetchGitHub(
     '/repos/adrianmurage/ISR-Next-13/issues',
     accessToken
   );
+
+  // filter for only issues cause the endpoint returns both issues and PRs
+  const issues = issuesAndPrs.filter(
+    (issue) => issue.node_id.charAt(0) === 'I'
+  );
+
   return issues;
 }
