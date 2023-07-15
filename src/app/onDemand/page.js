@@ -1,13 +1,11 @@
-import ExplanationBlock from '../components/ExplanationBlock';
-import InlineCodeBlock from '../components/InlineCodeBlock';
-import IssuesList from '../components/IssuesList';
-import NavBar from '../components/NavBar';
-import { fetchIssues } from '../lib/githubFetch';
-import { fetchGhIssues } from '../lib/octokit';
+import ExplanationBlock from '../../components/ExplanationBlock';
+import InlineCodeBlock from '../../components/InlineCodeBlock';
+import IssuesList from '../../components/IssuesList';
+import NavBar from '../../components/NavBar';
+import { fetchIssues } from '../../lib/githubFetch';
+import { fetchGhIssues } from '../../lib/octokit';
 
-export const revalidate = 90;
-
-export default async function Home() {
+export default async function OnDemand() {
   const issuesWithFetch = await fetchIssues();
   const issuesWithOctokit = await fetchGhIssues();
   return (
@@ -18,21 +16,22 @@ export default async function Home() {
           <ExplanationBlock>
             <h1 className="font-medium mb-4 text-lg">
               Background revalidation with{' '}
-              <InlineCodeBlock>fetch( )</InlineCodeBlock> and a third party
-              library ( <InlineCodeBlock>Octokit.js</InlineCodeBlock> )
+              <InlineCodeBlock>fetch( )</InlineCodeBlock>
+              and a third party library ({' '}
+              <InlineCodeBlock>Octokit.js</InlineCodeBlock> )
             </h1>
             <div>This app demonstrates how ISR works in Next.js 13.4.8</div>
           </ExplanationBlock>
         </section>
         <section>
           <h1 className="font-medium mb-4">
-            Background Revalidation with fetch
+            On Demand Revalidation with fetch
           </h1>
           <IssuesList issues={issuesWithFetch} />
         </section>
         <section>
           <h1 className="font-medium mb-4">
-            Background Revalidation with Octokit.js
+            On Demand Revalidation with Octokit.js
           </h1>
           <IssuesList issues={issuesWithOctokit} />
         </section>
