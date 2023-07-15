@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar';
 import { fetchIssues } from '../lib/githubFetch';
 import { fetchGhIssues } from '../lib/octokit';
 
-export const revalidate = 60;
+export const revalidate = 90;
 
 export default async function Home() {
   const issuesWithFetch = await fetchIssues();
