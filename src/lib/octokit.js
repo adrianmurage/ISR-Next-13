@@ -23,9 +23,9 @@ export async function createGitHubRequest(path) {
   const installation = await getInstallation();
   const octokit = await createAuthenticatedOctokitInstance(installation.id);
 
-  const issues = await octokit.request(path);
+  const results = await octokit.request(path);
 
-  return issues;
+  return results;
 }
 
 export async function fetchGhIssues() {
