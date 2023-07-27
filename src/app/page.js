@@ -17,11 +17,21 @@ export default async function Home() {
         <section>
           <ExplanationBlock>
             <h1 className="font-medium mb-4 text-lg">
-              Background revalidation with{' '}
-              <InlineCodeBlock>fetch( )</InlineCodeBlock> and a third party
-              library ( <InlineCodeBlock>Octokit.js</InlineCodeBlock> )
+              This App Demonstrates Incremental Static Regeneration in Next.js
+              13.4.9.
             </h1>
-            <div>This app demonstrates how ISR works in Next.js 13.4.8</div>
+            <details>
+              <summary>
+                <span>Background Revalidation</span>
+              </summary>
+              <p>longer version</p>
+            </details>
+            <details>
+              <summary>
+                <span>On-Demand Revalidation</span>
+              </summary>
+              <p>longer version</p>
+            </details>
           </ExplanationBlock>
         </section>
         <section>
