@@ -17,18 +17,20 @@ export default async function Home() {
         <section>
           <ExplanationBlock />
         </section>
-        <section>
-          <h1 className="font-medium mb-4">
-            Background Revalidation with fetch
-          </h1>
-          <IssuesList issues={issuesWithFetch} />
-        </section>
-        <section>
-          <h1 className="font-medium mb-4">
-            Background Revalidation with Octokit.js
-          </h1>
-          <IssuesList issues={issuesWithOctokit} />
-        </section>
+        <div className="grid grid-cols-2 gap-x-2 md:gap-x-5">
+          <section>
+            <h1 className="font-medium mb-4">
+              Background Revalidation with fetch
+            </h1>
+            <IssuesList issues={issuesWithFetch} />
+          </section>
+          <section>
+            <h1 className="font-medium mb-4">
+              Background Revalidation with Octokit.js
+            </h1>
+            <IssuesList issues={issuesWithOctokit} />
+          </section>
+        </div>
       </main>
     </>
   );
