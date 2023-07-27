@@ -1,37 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Incremental Static Regeneration in Next.js 13.4.9
 
-## Getting Started
+Demo of on-demand and background ISR in Next.js 13.4.9 using GitHub Issues. The app demonstrates how to use both the [`fetch()`](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching) method and the third party SDK [`Octokit.js`](https://github.com/octokit/octokit.js) to fetch GitHub issues and revalidate them at runtime. 
 
-First, run the development server:
+## On-Demand ISR
 
+When a new issues is created, a webhook from a GitHub App pushes new changes to the deployed application to regenerate the static page.
+
+## Background ISR
+
+Every 90 seconds the Next.js cache is invalidated and on the next visit after invalidation of the cache, Next.js regenerates the static page.
+
+## Setup
+
+1. Create a new [GitHub App](https://github.com/settings/apps/new).
+   1. Provide the URL of your deployed application for Homepage URL.
+   2. Ensure Webhook "Active" is checked.
+   3. Add `<your-site>/api/webhook` as the Webhook URL if you would like to use the `Pages` Router API routes or `<your-site>/api/revalidate` as the Webhook URL if you would like to use the `App` Router route handlers.
+   4. Create a Webhook secret and add it to .env.local as `GITHUB_WEBHOOK_SECRET`.
+   5. Give "Read Only" access to Issues.
+   6. Subscribe to "Issues" events.
+2. Add the App ID to `.env.local` as `GITHUB_APP_ID`.
+3. Generate a private key and add it to `.env.local` as `GITHUB_APP_PK_PEM`.
+4. Install the newly created GitHub App for your repo.
+5. To confirm that the GitHub App was installed successfully, check you list of app installations: `https://github.com/settings/apps/<your-app-name>/installations`
+
+
+## Running Locally
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Setting up Octokit
 
