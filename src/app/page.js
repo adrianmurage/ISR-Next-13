@@ -15,24 +15,7 @@ export default async function Home() {
       <main className="p-6 pt-10 space-y-8 max-w-5xl mx-auto">
         <NavBar />
         <section>
-          <ExplanationBlock>
-            <h1 className="font-medium mb-4 text-lg">
-              This App Demonstrates Incremental Static Regeneration in Next.js
-              13.4.9.
-            </h1>
-            <details>
-              <summary>
-                <span>Background Revalidation</span>
-              </summary>
-              <p>longer version</p>
-            </details>
-            <details>
-              <summary>
-                <span>On-Demand Revalidation</span>
-              </summary>
-              <p>longer version</p>
-            </details>
-          </ExplanationBlock>
+          <ExplanationBlock />
         </section>
         <section>
           <h1 className="font-medium mb-4">
