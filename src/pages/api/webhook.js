@@ -45,11 +45,11 @@ export default async function handleWebhook(req, res) {
 function getRawBody(req) {
   return new Promise((resolve, reject) => {
     let bodyChunks = [];
+    req.on('data', (chunk) => bodyChunks.push(chunk));
     req.on('end', () => {
       const rawBody = Buffer.concat(bodyChunks).toString('utf8');
       resolve(rawBody);
     });
-    req.on('data', (chunk) => bodyChunks.push(chunk));
   });
 }
 
